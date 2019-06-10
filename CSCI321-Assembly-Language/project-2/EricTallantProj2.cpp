@@ -145,8 +145,10 @@ int main()
 }
 
 string signed_extension(string s){
-    // you implement this one first
-    return "0";
+    
+    // create new string with the needed leading zeros (16 minus current length) followed by s
+    string result = string(16 - s.length(), '0') + s;
+    return result;
 }
 
 int binary_to_decimal_signed(string s){
