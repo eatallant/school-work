@@ -1,3 +1,4 @@
+
 //  Project 2
 //  Eric Tallant
 //  6/10/19
@@ -147,13 +148,29 @@ int main()
 string signed_extension(string s){
     
     // create new string with the needed leading zeros (16 minus current length) followed by s
-    string result = string(16 - s.length(), '0') + s;
+    string result = "";
+    
+    if(s[0] == '0') {
+        result = string(16 - s.length(), '0') + s;
+    } else {
+        result = string(16 - s.length(), '1') + s;
+    }
+    
     return result;
 }
 
 int binary_to_decimal_signed(string s){
-    // you implement this one third
-    return 0;
+    //extend s
+    string extended = signed_extension(s);
+    
+    //if negative, convert from two's complement and multiply result by -1 to get negative decimal value
+    if(s[0] == '1') {
+        extended = twos_complement(s);
+        return binary_to_decimal(extended) * -1;
+    }
+    
+    //if positive, return binary to decimal conversion
+    return binary_to_decimal(extended);
 }
 
 string decimal_to_binary_signed(int n){
@@ -167,8 +184,25 @@ string add_binaries_signed(string b1, string b2){
 }
 
 string twos_complement(string s){
-    // you implement this one second
-    return "0";
+    //if s == 0, return signed extention of 0
+    if(signed_extension(s) == signed_extension("0")) return signed_extension("0");
+    
+    //extend s
+    string extendedBinary = signed_extension(s);
+    
+    //reverse each digit
+    for(int i = 0; i < extendedBinary.length(); i++) {
+        if(extendedBinary[i] == '1') {
+            extendedBinary[i] = '0';
+        } else{
+            extendedBinary[i] = '1';
+        }
+    }
+    
+    //add 1
+    extendedBinary = add_binaries(extendedBinary, "1");
+    
+    return extendedBinary;
 }
 
 int binary_to_decimal(string s){
@@ -318,3 +352,6 @@ bool test_twos_complement(){
     return true;
     
 }
+
+
+
