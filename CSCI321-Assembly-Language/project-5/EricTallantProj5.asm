@@ -8,25 +8,34 @@
 include Irvine32.inc
 .data
 source BYTE "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-randString BYTE 25 DUP(?), 0
+randString BYTE 8 DUP(?), 0
 prompt BYTE "Press any key to continue....", 0
+outer BYTE ?
 
 .code
 main proc
-mov ecx, sizeof randString - 1     ; loop sizeof source - 1 times
-mov esi, 0                         ; index for the randString
-L:
-mov eax sizeof source - 1       
-call randomRange                   ; generate a random index with range form 0 to sizeof source - 2 and store in eax
 
-mov bl, source[eax]                ; copy the char at index position to a position in randString
+mov outer, 20						; outer loop runs 20 times
+La:
+
+mov ecx, sizeof randString - 1      ; loop sizeof source - 1 times
+mov esi, 0                          ; index for the randString
+Lb:
+mov eax, sizeof source - 1       
+call RandomRange                    ; generate a random index with range form 0 to sizeof source - 2 and store in eax
+
+mov bl, source[eax]                 ; copy the char at index position to a position in randString
 mov randString[esi], bl
-INC esi                            ; increment esi by 1
-loop L
+INC esi                             ; ++ esi
+loop Lb
 
-mov edx, OFFSET randString         ; print out the random string 
+mov edx, OFFSET randString			; print out the random string 
 call WriteString
-mov edx, OFFSET prompt             ; hold screen to display result
+call Crlf							; print new line
+
+dec outer							; -- outer loop counter
+jnz La								; jump back to La
+mov edx, OFFSET prompt              ; hold screen to display result
 call WriteString
 call ReadChar
 
