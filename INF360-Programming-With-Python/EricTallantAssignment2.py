@@ -11,26 +11,39 @@
 #(1 point) - Use the import keyword to import the random module. Use the random.randint() function somewhere in your script.
 
 
+# this program is a number guessing robot that isn't always great at it's job
 
-print("Hello, enter a number between 1 and 10 and I will guess it (hint, I'll know if you pick 5): ")
+print('Hello, enter a number between 1 and 10 and I will guess it (hint, I'll know if you pick 5): ')
 number = int(input())
 
+# user needs to stay in the guessing range
 while number < 1 or number > 10:
-  print("Follow the rules and try again: ")
+  print('Follow the rules and try again: ')
   number = int(input())
 
+low = 1
+high = 10
+answer = 'N'
 
+while answer == 'N': 
 
-while False: # while false, keep guessing
+  
 
-  low = 1
-  high = 11
+  guessRange = range(low,high + 1)
 
-  guessRange = range(low,high)
-
-  if number == 5: # if number is 5, guess 5
+  if number == 5: 
     print('You for sure picked 5')
-  elif number < 5: # else if number is less than 5, guess the highest remaining number and dec high
-    print('I\'m thinking ' + str(low))
-# else if number is greater than 5, guess the lowest remaining number and inc low
-# else give error and quit
+    break
+  elif number > 5: 
+    print('Is it ' + str(low) + '? (y/n): ')
+    answer = input().upper()
+    low = low + 1
+  elif number < 5:
+    print('Is it ' + str(high) + '? (y/n)')
+    answer = input().upper()
+    high = high - 1   
+  else:
+    print('You broke it')
+    break 
+
+print('I\'m so smart!!')
