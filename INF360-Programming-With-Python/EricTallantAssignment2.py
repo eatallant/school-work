@@ -13,12 +13,12 @@
 
 # this program is a number guessing robot that isn't always great at it's job
 
-print('Hello, enter a number between 1 and 10 and I will guess it (hint, I'll know if you pick 5): ')
+print("Hello, enter a number between 1 and 10 and I will guess it (hint, I'll know if you pick 5): ")
 number = int(input())
 
-# user needs to stay in the guessing range
+# user needs to stay in range
 while number < 1 or number > 10:
-  print('Follow the rules and try again: ')
+  print("Follow the rules and try again: ")
   number = int(input())
 
 low = 1
@@ -32,13 +32,14 @@ while answer == 'N':
   guessRange = range(low,high + 1)
 
   if number == 5: 
-    print('You for sure picked 5')
-    break
-  elif number > 5: 
+    print('I give up. try another number: ')
+    number = int(input())
+    continue
+  elif number > 5 and number < 10: 
     print('Is it ' + str(low) + '? (y/n): ')
     answer = input().upper()
     low = low + 1
-  elif number < 5:
+  elif number < 5 and number > 1:
     print('Is it ' + str(high) + '? (y/n)')
     answer = input().upper()
     high = high - 1   
@@ -46,4 +47,5 @@ while answer == 'N':
     print('You broke it')
     break 
 
-print('I\'m so smart!!')
+if answer == 'Y':
+  print('I\'m so smart!!')
