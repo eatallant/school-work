@@ -13,6 +13,10 @@
 
 # this program is a number guessing robot that isn't always great at it's job
 
+import random, time
+
+randVal = random.randint(2, 8)
+
 print("Hello, enter a number between 1 and 10 and I will guess it (hint, I'll know if you pick 5): ")
 number = int(input())
 
@@ -20,6 +24,11 @@ number = int(input())
 while number < 1 or number > 10:
   print("Follow the rules and try again: ")
   number = int(input())
+
+print('Thinking...')
+for i in range(randVal,0, -1):
+  print(i)
+  time.sleep(1)
 
 low = 1
 high = 10
