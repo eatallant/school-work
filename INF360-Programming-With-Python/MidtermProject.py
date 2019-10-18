@@ -22,4 +22,12 @@ soup1 = BeautifulSoup(coverpage, 'lxml')
 
 coverpage_news = soup1.find_all('h1', class_='leHuzq')
 
-print(coverpage_news)
+# loop through each article that coverpage_news finds and print the result
+for article in range(len(coverpage_news)):
+  
+  title = str(coverpage_news[article]).split('>')
+  print(title[1])
+
+
+
+
