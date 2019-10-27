@@ -60,10 +60,6 @@ def make_lib_file(textFile, newLibName):
 
 # make a list of libs that need answers from file
 def madLibber(textFile):
-  # validate file
-  if not os.path.isfile(textFile):
-    print('File or directory does not exist')
-    return
 
   libContent = textFile.open()
   # make a list of words that need filled in
@@ -79,5 +75,18 @@ def madLibber(textFile):
     libContent.write(re.sub('ADJECTIVE'|'ADVERB'|'NOUN'|'VERB', word, libContent))
 
   libContent.close()
+
+print('Welcome to Mad Lib')
+libFile = input('Enter the path of your file: ')
+newLib = input('Make a new name for this mad lib: ')
+
+make_lib_file(libFile, newLib)
+madLibber(newLib)
+
+newLib.open()
+print(newLib.read())
+
+
+
 
 
