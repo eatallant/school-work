@@ -27,19 +27,31 @@ truck was unaffected by these events.
 The results should be printed to the screen and saved to a new text file.
 
 functions:
-1. getLibs(textFile)
-  take file and run it through regex. every time ADJECTIVE, ADVERB, NOUN, or VERB is found in the file, 
-    ask user to input that word. append that input to list
+1. makeLib(textFile, newLibName)
+  create file newLibName.txt. copy contents of textFile. take new file and run it through regex. 
+    every time ADJECTIVE, ADVERB, NOUN, or VERB is found in the file, 
+    ask user to input that word type. replace that word type with user input. close file at end
   preconditions: textFile exists
-  postconditions: return list of user input values
   
 program steps:
 1. get file from user
 2. run getLibs
-3. create new file
-4. copy the contents of existing file to new file
-5. replace libs with user input
-6. print file
-7. close file
+3. print file
 """
+
+import os
+
+
+def makeLib(textFile, newLibName):
+  # validate file
+  if not os.path.isfile(textFile):
+    print('File or directory does not exist')
+    return
+
+  # open file
+  textContent = textFile.open()
+
+  # create new file and copy contents of textFile
+  newLib = open(newLibName + '.txt', 'w')
+  newLib.write(textContent.read())
 
