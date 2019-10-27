@@ -38,11 +38,12 @@ program steps:
 2. run getLibs
 3. print file
 """
-
 import os
+import re
 
 
-def makeLib(textFile, newLibName):
+# create a new file that is an exact copy of textFile
+def make_lib_file(textFile, newLibName):
   # validate file
   if not os.path.isfile(textFile):
     print('File or directory does not exist')
@@ -54,4 +55,29 @@ def makeLib(textFile, newLibName):
   # create new file and copy contents of textFile
   newLib = open(newLibName + '.txt', 'w')
   newLib.write(textContent.read())
+  newLib.close
+
+
+# make a list of libs that need answers from file
+def madLibber(textFile):
+  # validate file
+  if not os.path.isfile(textFile):
+    print('File or directory does not exist')
+    return
+
+  libContent = textFile.open()
+  # make a list of words that need filled in
+  libsWanted = re.findall('ADJECTIVE'|'ADVERB'|'NOUN'|'VERB', libContent)
+
+  # make a list of the users choice for the words
+  userLibs = []
+  for word in libsWanted:
+    userLibs.append(input('enter ' + word.lower() + ': '))
+
+  # for each word user picked, replace the place holder in the text file with the word
+  for word in userLibs:
+    libContent.write(re.sub('ADJECTIVE'|'ADVERB'|'NOUN'|'VERB', word, libContent))
+
+  libContent.close()
+
 
