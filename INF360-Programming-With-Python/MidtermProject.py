@@ -74,7 +74,7 @@ soup1 = BeautifulSoup(homepage, 'lxml')
 
 # find every article title in the latest article div on the page
 # these are organized by date so it will pull them in order from most recent
-articles = soup1.find_all('h1', class_='leHuzq')
+articles = soup1.find_all('h2', class_='leHuzq')
 
 # listings is a dictionary that will hold all of the titles and urls
 listings = {
@@ -98,7 +98,7 @@ listings = {
 # iterate through each article
 # in each article add a value for title and url to listing
 for article in range(0, 5):
-    listings[str(article + 1)]['title'] = remove_tags('h1', articles[article])
+    listings[str(article + 1)]['title'] = remove_tags('h2', articles[article])
     listings[str(article + 1)]['url'] = extract_href(articles[article].parent)
 
 
@@ -107,7 +107,7 @@ page_break()
 
 # loop through each article that homepage finds and print the result
 for title in range(0, 5):
-    titleText = remove_tags('h1', articles[title])
+    titleText = remove_tags('h2', articles[title])
     urlText = extract_href(articles[title].parent)
     print(str(title + 1) + ': "' + titleText + '"\n')
 
